@@ -4,7 +4,7 @@ import seaborn as sns
 import numpy as np
 
 import matplotlib
-matplotlib.use('Agg')  # Используем неинтерактивный бэкенд
+matplotlib.use('Agg')
 
 df = pd.read_csv('ncr_ride_bookings.csv')
 
@@ -16,7 +16,7 @@ plt.title('Распределение стоимости поездок (Booking
 plt.xlabel('Стоимость поездки')
 plt.ylabel('Количество поездок')
 plt.grid(True, alpha=0.3)
-plt.savefig('booking_value_histogram.png')  # Сохраняем в файл
+plt.savefig('booking_value_histogram.png')
 plt.close()
 
 print("Гистограмма сохранена в файл 'booking_value_histogram.png'")
@@ -36,7 +36,7 @@ plt.title('Зависимость стоимости поездки от рас�
 plt.xlabel('Расстояние поездки (км)')
 plt.ylabel('Стоимость поездки')
 plt.grid(True, alpha=0.3)
-plt.savefig('scatter_plot.png')  # Сохраняем в файл
+plt.savefig('scatter_plot.png')
 plt.close()
 
 print("Диаграмма рассеяния сохранена в файл 'scatter_plot.png'")
