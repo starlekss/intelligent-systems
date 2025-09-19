@@ -3,17 +3,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-# Устанавливаем бэкенд, который не требует GUI
 import matplotlib
 matplotlib.use('Agg')  # Используем неинтерактивный бэкенд
 
-# Загрузка данных
 df = pd.read_csv('ncr_ride_bookings.csv')
 
-# Фильтруем только завершенные поездки с ненулевым Booking Value
 completed_rides = df[(df['Booking Status'] == 'Completed') & (df['Booking Value'].notnull())]
 
-# 1. Гистограмма распределения Booking Value
 plt.figure(figsize=(12, 6))
 sns.histplot(completed_rides['Booking Value'], bins=50, kde=True)
 plt.title('Распределение стоимости поездок (Booking Value)')
@@ -25,13 +21,11 @@ plt.close()
 
 print("Гистограмма сохранена в файл 'booking_value_histogram.png'")
 
-# Дополнительная информация о распределении
 print(f"Средняя стоимость поездки: {completed_rides['Booking Value'].mean():.2f}")
 print(f"Медианная стоимость поездки: {completed_rides['Booking Value'].median():.2f}")
 print(f"Минимальная стоимость: {completed_rides['Booking Value'].min():.2f}")
 print(f"Максимальная стоимость: {completed_rides['Booking Value'].max():.2f}")
 
-# 2. Диаграмма рассеяния Booking Value от Ride Distance
 scatter_data = df[(df['Booking Status'] == 'Completed') &
                  (df['Booking Value'].notnull()) &
                  (df['Ride Distance'].notnull())]
@@ -47,6 +41,5 @@ plt.close()
 
 print("Диаграмма рассеяния сохранена в файл 'scatter_plot.png'")
 
-# Вычисляем коэффициент корреляции
 correlation = scatter_data['Ride Distance'].corr(scatter_data['Booking Value'])
 print(f"Коэффициент корреляции между расстоянием и стоимостью: {correlation:.3f}")
