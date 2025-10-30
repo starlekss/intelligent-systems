@@ -63,7 +63,6 @@ class RidePricePredictor:
         """Создание основной визуализации"""
         fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(15, 10))
 
-        # Основной график
         ax1.scatter(self.df['distance'], self.df['price'], alpha=0.6, s=50)
         x_range = np.linspace(0, 55, 100).reshape(-1, 1)
         y_range = self.model.predict(x_range)
@@ -80,7 +79,6 @@ class RidePricePredictor:
         ax1.legend()
         ax1.grid(True, alpha=0.3)
 
-        # Распределение ошибок
         y_pred = self.model.predict(self.df[['distance']].values)
         errors = self.df['price'].values - y_pred
         ax2.hist(errors, bins=15, alpha=0.7, color='lightcoral')
@@ -89,14 +87,12 @@ class RidePricePredictor:
         ax2.set_title('Распределение ошибок')
         ax2.grid(True, alpha=0.3)
 
-        # Стоимость по времени суток
         time_price = self.df.groupby('time_of_day')['price'].mean()
         ax3.bar(time_price.index, time_price.values, alpha=0.7)
         ax3.set_xlabel('Время суток')
         ax3.set_ylabel('Средняя стоимость (руб)')
         ax3.set_title('Стоимость по времени суток')
 
-        # Корреляционная матрица
         numeric_df = self.df[['distance', 'price']].corr()
         sns.heatmap(numeric_df, annot=True, cmap='coolwarm', center=0, ax=ax4)
         ax4.set_title('Корреляционная матрица')
